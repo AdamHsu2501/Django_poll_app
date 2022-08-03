@@ -9,6 +9,7 @@ from django.views.generic.edit import CreateView, FormView
 from django.views.generic.detail import DetailView
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import login
 
 from .models import Question, Option, Submission
@@ -39,13 +40,13 @@ class UserRegisterView(FormView):
         return super(UserRegisterView, self).get(*args, **kwargs)
     
     
-class QusetionListView(ListView):
+class QusetionListView(LoginRequiredMixin, ListView):
     model = Question
     template_name = 'poll/question_list.html'
     
     
 
-class QuestionDetailView(DetailView):
+class QuestionDetailView(LoginRequiredMixin, DetailView):
     model = Question
     template_name = 'poll/question.html'
     context_object_name = 'question'
@@ -83,7 +84,7 @@ def extract_answers(request):
            submitted_anwsers.append(option_id)
    return submitted_anwsers
 
-class QuestionResultView(DetailView):
+class QuestionResultView(LoginRequiredMixin,DetailView):
     model = Question
     template_name = 'poll/question_result.html'
     context_object_name = 'question'
