@@ -1,0 +1,37 @@
+{% extends 'poll/base.html' %}
+{% load widget_tweaks %}
+{% block content %}
+<div class="container">
+    <div class="mb-5">
+        <a class="btn btn-outline-primary" href="{% url 'question-list'%}">Go to list</a>
+    </div>
+
+    <div>
+        <h3>{{question.title}} </h3>
+        <p><b>{{submission_total}}</b> user{{submittion_total|pluralize:"s" }} voted</p>
+    </div>
+    <ul>
+        {% for result in results %}
+        <li class="form-check">
+            <div class="row">
+
+                <div class="col">
+                    <label class="form-check-label">
+                        <input type="{{question.type}}" name="option_{{result.0.pk}}" class="form-check-input"
+                            id="{{result.0.pk}}" value="{{result.0.pk}}" disabled {% if result.1 %} checked {% endif %}>
+                        {{ result.0.title }}
+                    </label>
+                </div>
+                <div class="col">
+                    <p>{{ result.2 }}</p>
+                </div>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+
+    <div class="mt-5">
+        <a class="btn btn-primary" href="{% url 'question' question.id %}">Reselect</a>
+    </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,15 @@
+{% extends 'poll/base.html' %}
+
+{% block content %}
+<div class="container">
+    {% for question in object_list %}
+    <div class=" mb-3 border-bottom d-flex justify-content-between">
+        <div>{{question.title}}</div>
+        <div>
+            <a class="btn btn-primary" href="{% url 'question' question.pk %}">Vote</a>
+            <a class="btn btn-outline-primary" href="{% url 'result' question.pk %}">Result</a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock content %}

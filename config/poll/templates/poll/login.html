@@ -1,0 +1,25 @@
+{% extends 'poll/base.html' %}
+{% load widget_tweaks %}
+{% block content %}
+<div class="container">
+    <div class="mb-5">
+        <a class="btn btn-outline-primary" href="{% url 'question-list'%}">Go Back</a>
+    </div>
+
+    <form method="post" class="mb-5">
+        {% csrf_token %}
+        <div class="mb-3">
+            {{ form.username.label }}
+            {{ form.username|add_class:'form-control' }}
+        </div>
+        <div class="mb-3">
+            {{ form.password.label }}
+            {{ form.password|add_class:'form-control' }}
+        </div>
+        <input class="btn btn-primary" type="submit" value="Login">
+    </form>
+
+    <p>Do not have an account? <a href="{% url 'register' %}">Register</a></p>
+
+</div>
+{% endblock content%}
